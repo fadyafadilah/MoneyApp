@@ -17,6 +17,7 @@ export default class EditDebt extends Component {
     const { namaPeminjam, nominal, jatuhTempo } = this.state;
     const { debtor } = this.props.route.params;
     const { navigation } = this.props;
+    const userId = 'user123'; // Ganti dengan ID pengguna yang sedang login
 
     if (!namaPeminjam || !nominal || !jatuhTempo) {
       Alert.alert('Error', 'Please fill all fields');
@@ -25,7 +26,7 @@ export default class EditDebt extends Component {
 
     try {
       const updatedData = { namaPeminjam, nominal, jatuhTempo };
-      await updateDebt(debtor.id, updatedData); // Update data di API
+      await updateDebt(debtor.id, updatedData, userId); // Update data di API jika userId sesuai
       Alert.alert('Success', 'Data successfully updated');
       navigation.navigate('Home'); // Navigasi kembali ke Home
     } catch (error) {

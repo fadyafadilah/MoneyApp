@@ -8,6 +8,7 @@ export default class DebtDetails extends Component {
   handleDelete = async () => {
     const { debtor } = this.props.route.params; // Dapatkan ID data
     const { navigation } = this.props;
+    const userId = 'user123'; // Ganti dengan ID pengguna yang sedang login
 
     Alert.alert(
       'Delete Confirmation',
@@ -18,7 +19,7 @@ export default class DebtDetails extends Component {
           text: 'Delete',
           onPress: async () => {
             try {
-              await deleteDebt(debtor.id); // Hapus data dari API
+              await deleteDebt(debtor.id, userId); // Hapus data dari API jika userId sesuai
               Alert.alert('Success', 'Data berhasil terhapus');
               navigation.navigate('Home'); // Navigasi ke Home
             } catch (error) {

@@ -10,6 +10,7 @@ const API = axios.create({
 
 // Fungsi untuk menambahkan data hutang
 export const addDebt = async (payload) => {
+  const userId = payload.userId; // Ambil userId dari payload
   try {
     const response = await API.post('/debtList', payload); // Endpoint untuk menambah data
     return response.data;
@@ -19,9 +20,10 @@ export const addDebt = async (payload) => {
   }
 };
 
-export const deleteDebt = async (id) => {
+// Fungsi untuk menghapus data hutang
+export const deleteDebt = async (id, userId) => {
   try {
-    const response = await API.delete(`/debtList/${id}`); // Endpoint untuk menghapus data
+    const response = await API.delete(`/debtList/${id}?userId=${userId}`); // Pastikan userId sesuai
     return response.data;
   } catch (error) {
     console.error('Error deleting debt:', error);
@@ -29,9 +31,11 @@ export const deleteDebt = async (id) => {
   }
 };
 
-export const updateDebt = async (id, updatedData) => {
+// Fungsi untuk memperbarui data hutang
+export const updateDebt = async (id, updatedData, userId) => {
   try {
-    const response = await API.put(`/debtList/${id}`, updatedData); // Endpoint untuk update data
+    // Cek apakah userId sesuai dengan data yang ingin diubah
+    const response = await API.put(`/debtList/${id}?userId=${userId}`, updatedData); // Pastikan userId sesuai
     return response.data;
   } catch (error) {
     console.error('Error updating debt:', error);
